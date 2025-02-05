@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Mời 100 Ngày</title>
+    <style>
+        body {
+            font-family: Courier, monospace;
+            background-color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #333;
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        .fullscreen {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background: url('04.png') no-repeat center center/cover;
+            filter: brightness(60%);
+        }
+
+        .fullscreen .overlay-text-top {
+            position: absolute;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .fullscreen .overlay-text-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 60px;
+            font-weight: bold;
+            color: white;
+            width: 100%;
+            font-family: "Courier New", Courier, monospace;
+        }
+
+        .banner {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .banner img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+
+        .blurred-image {
+            position: relative;
+        }
+
+        .blurred-image img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            filter: brightness(50%);
+        }
+
+        .blurred-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(224, 247, 250, 0.7);
+            padding: 10px;
+            font-weight: bold;
+        }
+
+        .response-section {
+            background: rgba(224, 247, 250, 0.6);
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+        }
+
+        input, select, button {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #4fc3f7;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #29b6f6;
+        }
+
+        .response-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .response-option {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .response-buttons img {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        .response-buttons span {
+            margin-top: 5px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="fullscreen">
+        <div class="overlay-text-top">백일</div>
+        <div class="overlay-text-bottom">TRẦN QUANG ĐĂNG</div>
+    </div>
+
+    <h2>Mời các bạn/anh/chị đến chơi cùng bé bi mừng bé được tròn 100 days</h2>
+
+    <img src="07.png" alt="Lịch tháng 2, 2025">
+
+    <div class="banner">
+        <img src="06.png" alt="Ảnh 06">
+        <img src="05.png" alt="Ảnh 05">
+        <img src="02.png" alt="Ảnh 02">
+        <img src="01.png" alt="Ảnh 01">
+    </div>
+
+    <p>Bữa tiệc nho nhỏ của gia đình sẽ được tổ chức vào lúc 1g chiều ngày 22/2/2025<br>
+    Địa chỉ: Quán Phở Nam Định (서울 광진구 긴고랑로13길 10 2층)</p>
+
+    <div class="blurred-image">
+        <img src="03.png" alt="Gia đình mời">
+        <div class="blurred-text">Gia đình trân trọng mời bạn đến chung vui ạ.</div>
+    </div>
+
+    <div class="response-section">
+        <h3>Thông tin phản hồi</h3>
+        <p>Để thuận tiện cho việc sắp xếp chỗ ngồi, vui lòng phản hồi giúp vợ chồng mình nhé!</p>
+
+        <input type="text" placeholder="Tên khách mời">
+
+        <div class="response-buttons">
+            <div class="response-option">
+                <img src="09.png" alt="Yeah! Sẵn sàng">
+                <span>Yeah! Sẵn sàng</span>
+            </div>
+            <div class="response-option">
+                <img src="08.png" alt="Oh! Rất tiếc">
+                <span>Oh! Rất tiếc</span>
+            </div>
+        </div>
+
+        <select>
+            <option value="1">1 người</option>
+            <option value="2">2 người</option>
+        </select>
+
+        <button>Gửi Phản Hồi</button>
+    </div>
+</body>
+</html>
