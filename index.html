@@ -137,6 +137,19 @@
             max-width: 100%;
             height: auto;
         }
+
+        .notification {
+            display: none;
+            background-color: #4caf50;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 5px;
+            z-index: 1000;
+        }
     </style>
 </head>
 <body>
@@ -168,14 +181,14 @@
         <h3>Thông tin phản hồi</h3>
         <p>Để thuận tiện cho việc sắp xếp chỗ ngồi, vui lòng phản hồi giúp vợ chồng mình nhé!</p>
 
-        <input type="text" placeholder="Tên khách mời">
+        <input type="text" id="guest-name" placeholder="Tên khách mời">
 
         <div class="response-buttons">
-            <div class="response-option">
+            <div class="response-option" onclick="showNotification('Bạn đã chọn: Yeah! Sẵn sàng')">
                 <img src="09.png" alt="Yeah! Sẵn sàng">
                 <span>Yeah! Sẵn sàng</span>
             </div>
-            <div class="response-option">
+            <div class="response-option" onclick="showNotification('Bạn đã chọn: Oh! Rất tiếc tôi bận')">
                 <img src="08.png" alt="Oh! Rất tiếc">
                 <span>Oh! Rất tiếc tôi bận</span>
             </div>
@@ -186,8 +199,11 @@
             <option value="2">2 người</option>
         </select>
 
-        <button>Gửi Phản Hồi</button>
+        <button onclick="submitResponse()">Gửi Phản Hồi</button>
     </div>
+
+    <div class="notification" id="notification"></div>
+
 <script>
     const scriptURL = 'https://script.google.com/macros/s/AKfycbyCF8MESdXfDdteHnBujJ-dwHWdf-8jfcHZJegCzM-_YFRj8Jxo0r907eYO309YzwpS/exec'; // Thay YOUR_WEB_APP_URL bằng link web app bạn đã triển khai
 
@@ -214,7 +230,10 @@
     document.querySelector('img[alt="Yeah! Sẵn sàng"]').onclick = () => submitResponse('Yeah!');
     document.querySelector('img[alt="Oh! Rất tiếc"]').onclick = () => submitResponse('Oh no!');
     document.querySelector('button').onclick = () => alert("Vui lòng chọn một trong hai lựa chọn phản hồi.");
-</script>
-
+    
+        function submitResponse() {
+            showNotification('Đã gửi phản hồi thành công!');
+        }
+    </script>
 </body>
 </html>
