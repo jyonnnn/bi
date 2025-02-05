@@ -188,5 +188,33 @@
 
         <button>Gửi Phản Hồi</button>
     </div>
+<script>
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbyCF8MESdXfDdteHnBujJ-dwHWdf-8jfcHZJegCzM-_YFRj8Jxo0r907eYO309YzwpS/exec'; // Thay YOUR_WEB_APP_URL bằng link web app bạn đã triển khai
+
+    function submitResponse(responseType) {
+        const guestName = document.querySelector('input[type="text"]').value;
+        const numPeople = document.querySelector('select').value;
+
+        if (!guestName) {
+            alert("Vui lòng nhập tên khách mời.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('guestName', guestName);
+        formData.append('response', responseType);
+        formData.append('numPeople', numPeople);
+
+        fetch(scriptURL, { method: 'POST', body: formData })
+            .then(response => response.text())
+            .then(message => alert(message))
+            .catch(error => console.error('Error!', error.message));
+    }
+
+    document.querySelector('img[alt="Yeah! Sẵn sàng"]').onclick = () => submitResponse('Yeah!');
+    document.querySelector('img[alt="Oh! Rất tiếc"]').onclick = () => submitResponse('Oh no!');
+    document.querySelector('button').onclick = () => alert("Vui lòng chọn một trong hai lựa chọn phản hồi.");
+</script>
+
 </body>
 </html>
