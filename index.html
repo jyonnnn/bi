@@ -184,16 +184,18 @@
 
         <input type="text" id="guest-name" placeholder="Tên khách mời">
 
-        <div class="response-buttons">
-            <div class="response-option" id="yes-option" onclick="selectOption('Yeah!')">
-                <img src="09.png" alt="Yeah! Sẵn sàng">
-                <span>Yeah! Sẵn sàng</span>
-            </div>
-            <div class="response-option" id="no-option" onclick="selectOption('Oh no!')">
-                <img src="08.png" alt="Oh! Rất tiếc">
-                <span>Oh! Rất tiếc tôi bận</span>
-            </div>
-        </div>
+
+           <div class="notification" id="notification"></div>
+<div class="response-buttons">
+    <div class="response-option" data-value="Yeah! Sẵn sàng" onclick="selectOption('Yeah! Sẵn sàng')">
+        <img src="09.png" alt="Yeah! Sẵn sàng">
+        <span>Yeah! Sẵn sàng</span>
+    </div>
+    <div class="response-option" data-value="Oh! Rất tiếc" onclick="selectOption('Oh! Rất tiếc')">
+        <img src="08.png" alt="Oh! Rất tiếc">
+        <span>Oh! Rất tiếc tôi bận</span>
+    </div>
+</div>
 
         <select id="guest-count">
             <option value="1">1 người</option>
@@ -203,53 +205,45 @@
         <button onclick="submitResponse()">Gửi Phản Hồi</button>
     </div>
 
-    <div class="notification" id="notification"></div>
+<script>
+  function submitResponse() {
+      var guestName = document.getElementById("guest-name").value;
+      var response = document.querySelector('.response-option.selected')?.getAttribute("data-value");
+      var guestCount = document.getElementById("guest-count").value;
 
-    <script>
-        const scriptURL = 'https://script.google.com/macros/s/AKfycbyJeoUgl2peTm2KnjBKfrgXk607VC624TnIT1q89e-qDpb3_HpU0lFYynOLL36bpgPL/exec'; // Dán URL Google Apps Script của bạn ở đây
-        let selectedOption = "";
+      if (!guestName || !response) {
+          alert("Vui lòng điền đầy đủ thông tin!");
+          return;
+      }
 
-        function selectOption(option) {
-            selectedOption = option;
-            document.getElementById('yes-option').classList.toggle('selected', option === 'Yeah!');
-            document.getElementById('no-option').classList.toggle('selected', option === 'Oh no!');
-            showNotification(`Bạn đã chọn: ${option === 'Yeah!' ? 'Yeah! Sẵn sàng' : 'Oh! Rất tiếc tôi bận'}`);
-        }
+      var data = {
+          name: guestName,
+          response: response,
+          count: guestCount
+      };
 
-        function showNotification(message) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.style.display = 'block';
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 2000);
-        }
+      fetch("https://script.google.com/macros/s/AKfycbw7A9stPSE55GOTE95T8-0Efv8n5iFbp0m2CarcVx1bjNiEoolZDb2WQc1DhERXrDF2/exec", { // Thay YOUR_APPS_SCRIPT_URL bằng URL Web App đã lấy ở Bước 2
+          method: "POST",
+          mode: "no-cors",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+      }).then(() => {
+          alert("Gửi phản hồi thành công!");
+          document.getElementById("guest-name").value = "";
+      }).catch(() => {
+          alert("Vui lòng gửi lại!");
+      });
+  }
 
-        function submitResponse() {
-            const guestName = document.getElementById('guest-name').value;
-            const guestCount = document.getElementById('guest-count').value;
+  function selectOption(value) {
+      document.querySelectorAll(".response-option").forEach(el => el.classList.remove("selected"));
+      var selectedOption = document.querySelector(`[data-value='${value}']`);
+      if (selectedOption) selectedOption.classList.add("selected");
+  }
+</script>
 
-            if (!guestName || !selectedOption) {
-                showNotification('Vui lòng nhập tên và chọn phản hồi.');
-                return;
-            }
 
-            fetch(scriptURL, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: guestName, response: selectedOption, count: guestCount })
-            })
-            .then(response => {
-                if (response.ok) {
-                    showNotification('Đã gửi phản hồi thành công!');
-                } else {
-                    showNotification('Có lỗi xảy ra, vui lòng thử lại.');
-                }
-            })
-            .catch(() => {
-                showNotification('Không thể kết nối tới máy chủ.');
-            });
-        }
-    </script>
 </body>
 </html>
